@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="test">
+		<environment id="test">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+				<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=newClassDesign"/>
+				<property name="username" value="zwt"/>
+				<property name="password" value="123456"/>
+			</dataSource>
+		
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="mappers/TeacherMapper.xml"/>
+		<mapper resource="mappers/CatalogMapper.xml"/>
+		<mapper resource="mappers/FirDisciplineMapper.xml"/>
+		<mapper resource="mappers/SecDiscipline.xml"/>
+		<mapper resource="mappers/SecExamMapper.xml"/>
+		<mapper resource="mappers/SecStudentMapper.xml"/>
+		<mapper resource="mappers/SecTInfMapper.xml"/>
+		<mapper resource="mappers/StudentMapper.xml"/>
+		<mapper resource="mappers/IsSelectedMapper.xml"/>
+		<mapper resource="mappers/PublicityMapper.xml"/>
+		<mapper resource="mappers/LoginMapper.xml"/>
+		<mapper resource="mappers/TeacherIndexMapper.xml"/>
+		<mapper resource="mappers/StudentSelectedMapper.xml"/>
+	</mappers>
+
+
+</configuration>
