@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.TeacherIndexMapper">
+	<resultMap id="TeacherIndexResult" type="entity.TeacherIndex">
+        <id property="tNo" column="TNo" />
+        <result property="tN" column="TN" />
+        <result property="disciplineNum" column="DisciplineNum" />
+        <result property="secondaryNum" column="SecondaryNum" />
+        <result property="indexNo" column="IndexNo" />
+    </resultMap>
+	
+    <!-- 更新操作 -->
+    <update id="update" parameterType="entity.TeacherIndex">
+        UPDATE TeacherIndex
+        SET TN = #{TN}, IndexNo = #{IndexNo}
+        WHERE TNo = #{TNo} AND DisciplineNum = #{DisciplineNum} AND SecondaryNum = #{SecondaryNum}
+    </update>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultType="entity.TeacherIndex">
+        SELECT * FROM TeacherIndex
+    </select>
+
+    <!-- 根据主键查询记录 -->
+    <select id="selectByPrimaryKey" parameterType="map" resultType="entity.TeacherIndex">
+        SELECT * FROM TeacherIndex
+        WHERE TNo = #{TNo} AND DisciplineNum = #{DisciplineNum} AND SecondaryNum = #{SecondaryNum}
+    </select>
+    
+    <select id="findIndicesWithGreaterThanZero" resultMap="TeacherIndexResult">
+        SELECT * FROM TeacherIndex WHERE TNo = #{tNo} AND IndexNo > 0
+    </select>
+</mapper>
