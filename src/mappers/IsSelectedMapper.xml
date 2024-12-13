@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.IsSelectedMapper">
+    <resultMap id="IsSelectedResult" type="entity.IsSelected">
+        <id property="disciplineNum" column="DisciplineNum" />
+        <id property="secondaryNum" column="SecondaryNum" />
+        <result property="state" column="State" />
+    </resultMap>
+
+    <select id="findFirstUnselected" resultMap="IsSelectedResult">
+        SELECT TOP 1 DisciplineNum, SecondaryNum, State
+        FROM IsSelected
+        WHERE State = 0
+        ORDER BY DisciplineNum, SecondaryNum
+    </select>
+
+    <select id="allSelected" resultType="int">
+        SELECT CASE WHEN COUNT(*) = (SELECT COUNT(*) FROM IsSelected) THEN 1 ELSE 0 END FROM IsSelected WHERE State = 1
+    </select>
+</mapper>

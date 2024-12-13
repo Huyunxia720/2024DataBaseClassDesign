@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.StudentMapper">
+    <resultMap id="StudentResult" type="entity.Student">
+        <id property="examNo" column="ExamNo" />
+        <result property="sn" column="SN" />
+        <result property="sex" column="Sex" />
+        <result property="idNo" column="IDNo" />
+        <result property="birthdate" column="Birthdate" />
+        <result property="email" column="Email" />
+        <result property="sNumber" column="SNumber" />
+        <result property="emergenNumber" column="EmergenNumber" />
+        <result property="sCategory" column="SCategory" />
+        <result property="province" column="Province" />
+        <result property="undergraSchool" column="UndergraSchool" />
+        <result property="disType" column="DisType" />
+        <result property="undergraMajor" column="UndergraMajor" />
+        <result property="undergraTime" column="UndergraTime" />
+        <result property="preScores" column="PreScores" />
+        <result property="sResume" column="SResume" />
+        <result property="fushi" column="fushi" />
+    </resultMap>
+
+    <insert id="insert" parameterType="entity.Student">
+        INSERT INTO Student(ExamNo, SN, Sex, IDNo, Birthdate, Email, SNumber, EmergenNumber, SCategory, Province, UndergraSchool, DisType, UndergraMajor, UndergraTime, PreScores, SResume)
+        VALUES (#{examNo}, #{sn}, #{sex}, #{idNo}, #{birthdate}, #{email}, #{sNumber}, #{emergenNumber}, #{sCategory}, #{province}, #{undergraSchool}, #{disType}, #{undergraMajor}, #{undergraTime}, #{preScores}, #{sResume},#{fushi})
+    </insert>
+
+    <update id="update" parameterType="entity.Student">
+        UPDATE Student
+        SET SN=#{sn}, Sex=#{sex}, IDNo=#{idNo}, Birthdate=#{birthdate}, Email=#{email}, SNumber=#{sNumber}, EmergenNumber=#{emergenNumber}, SCategory=#{sCategory}, Province=#{province}, UndergraSchool=#{undergraSchool}, DisType=#{disType}, UndergraMajor=#{undergraMajor}, UndergraTime=#{undergraTime}, PreScores=#{preScores}, SResume=#{sResume}, fushi=#{fushi}
+        WHERE ExamNo=#{examNo}
+    </update>
+
+    <select id="selectByExamNo" resultMap="StudentResult">
+        SELECT * FROM Student WHERE ExamNo = #{examNo}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM Student WHERE ExamNo = #{examNo}
+    </delete>
+    
+    <select id="selectAllStudents" resultMap="StudentResult">
+        SELECT * FROM S
+    </select>
+
+    <select id="selectStudentByExamNo" resultMap="StudentResult">
+        SELECT * FROM S WHERE ExamNo = #{examNo}
+    </select>
+     <select id="selectByChoice1" parameterType="map" resultMap="StudentResult">
+    	SELECT *
+        FROM S
+        INNER JOIN SecExam ON S.ExamNo = SecExam.ExamNo
+        INNER JOIN StudentSelected ON S.ExamNo = StudentSelected.ExamNo
+        INNER JOIN TeacherIndex ON TeacherIndex.TNo = SecExam.Choice1 
+        AND TeacherIndex.DisciplineNum = SecExam.DisciplineNum
+        AND TeacherIndex.SecondaryNum = SecExam.SecondaryNum
+        WHERE TeacherIndex.TNo = #{tno}
+        AND TeacherIndex.DisciplineNum = #{disciplineNum}
+        AND TeacherIndex.SecondaryNum = #{secondaryNum}
+        AND StudentSelected.Selected=0 
+    </select>
+    <select id="selectByChoice2" parameterType="map" resultMap="StudentResult">
+    	SELECT *
+        FROM S
+        INNER JOIN SecExam ON S.ExamNo = SecExam.ExamNo
+        INNER JOIN StudentSelected ON S.ExamNo = StudentSelected.ExamNo
+        INNER JOIN TeacherIndex ON TeacherIndex.TNo = SecExam.Choice2 
+        AND TeacherIndex.DisciplineNum = SecExam.DisciplineNum
+        AND TeacherIndex.SecondaryNum = SecExam.SecondaryNum
+        WHERE TeacherIndex.TNo = #{tno}
+        AND TeacherIndex.DisciplineNum = #{disciplineNum}
+        AND TeacherIndex.SecondaryNum = #{secondaryNum}
+        AND StudentSelected.Selected=0
+    </select>
+    <select id="selectByChoice3" parameterType="map" resultMap="StudentResult">
+    	SELECT *
+        FROM S
+        INNER JOIN SecExam ON S.ExamNo = SecExam.ExamNo
+        INNER JOIN StudentSelected ON S.ExamNo = StudentSelected.ExamNo
+        INNER JOIN TeacherIndex ON TeacherIndex.TNo = SecExam.Choice3
+        AND TeacherIndex.DisciplineNum = SecExam.DisciplineNum
+        AND TeacherIndex.SecondaryNum = SecExam.SecondaryNum
+        WHERE TeacherIndex.TNo = #{tno}
+        AND TeacherIndex.DisciplineNum = #{disciplineNum}
+        AND TeacherIndex.SecondaryNum = #{secondaryNum}
+        AND StudentSelected.Selected=0
+    </select>
+    
+</mapper>

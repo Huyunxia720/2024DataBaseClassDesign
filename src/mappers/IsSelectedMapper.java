@@ -1,0 +1,8 @@
+package mappers;
+
+import entity.IsSelected;
+
+public interface IsSelectedMapper {
+    IsSelected findFirstUnselected();
+    int allSelected(); // ÒÆ³ýÁË @Select ×¢½â
+}
